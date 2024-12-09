@@ -1,4 +1,3 @@
-
 import numpy as np
 from collections import Counter
 
@@ -10,7 +9,11 @@ class KNN:
    def __init__(self, k=3):
       self.k = k
 
-   def fit(self, X, y):
+   def fit(self, X, y):  
+      '''knn 은 fit 의 과정이 그냥 변수 대입인건가?
+        x 데이터들에 대해 모델을 최적화 시키는 과정이 없으므로 fit 이 필요 없네
+        즉 knn 은 그냥 ML 이라기보다 분류 알고리즘이라고 하는게 적절하겠다.
+      '''
       self.X_train = X
       self.y_train = y
 
