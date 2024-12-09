@@ -9,9 +9,9 @@ X, y = iris.data, iris.target
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1234)
 
 
-# 시각화'
-
-"""import matplotlib.pyplot as plt
+## X 시각화.
+"""
+import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 
 cmap = ListedColormap(['#FF0000','#00FF00','#0000FF']) # red green blue 의 color hex code 임.
@@ -57,10 +57,12 @@ plt.show()
 
 
 clf = KNN(k=5)
+# 데이터 클래스로 전달.
 clf.fit(X_train, y_train)
+
 predictions = clf.predict(X_test)
 
 print(predictions)
 
 acc = np.sum(predictions == y_test) / len(y_test)
-print(acc)"""
+print(acc)

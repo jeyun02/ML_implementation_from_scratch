@@ -1,12 +1,28 @@
-"""
+
+import numpy as np
+from collections import Counter
+
+def euclidean_distance(x1, x2):
+   distance = np.sqrt(np.sum((x1-x2)**2))
+   return distance
+
 class KNN:
+   def __init__(self, k=3):
+      self.k = k
+
+   def fit(self, X, y):
+      self.X_train = X
+      self.y_train = y
 
    def predict(self, X):
       predictions = [self._predict(x) for x in X]
+      return predictions
+   
                   #   [1,1,1,1,1,1,1 ... 1 ] 
                   #            X 개
    def _predict(self, x):
       # compute the distance(유클리디안 거리)
+      distances = [euclidean_distance(x, x_train) for x_train in self.X_train]
       
       # get the closest k y labels 
       # >>> np.argsort([20, 49, 29])
