@@ -4,6 +4,11 @@ def sigmoid(a):
    # odds 를 구한다. ( 생략)
    # 로짓변환을 한다.(생략)
    return 1/(1 + np.exp(-a))
+   # np.exp() 를 사용할 때 수가 너무 커져 오버플로우가 발생한다. 젠장!
+   # -a 를 np.float128(-a) 로 변경해보자 -> 64 비트 운영체제에서는 안되나본데? anaconda 같은거 사용해야하나봐
+   
+   # 어떤 블로그에서는 exp(a - np.max(a))를 해보라는데... 그럼 왜곡이 생기지 않나? 일단 해보자.
+   # return 1/(1 + np.exp(-a - np.max(-a))) -> 으로 변경했을 때 accuracy 가 0.92에서 0.61로 폭락했다.
 
 class LogisticRegression:
    def __init__(self, lr=0.01, n_iters=1000):
