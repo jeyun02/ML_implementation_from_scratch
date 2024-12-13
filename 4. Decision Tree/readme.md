@@ -1,3 +1,6 @@
+# 4. Decision Tree.
+
+
 이 코드는 결정 트리(Decision Tree) 알고리즘을 구현한 것입니다. 결정 트리는 데이터를 분류하는 데 사용되는 지도 학습 알고리즘입니다.  트리의 각 노드는 특징(feature)과 임계값(threshold)을 기반으로 데이터를 분할하고, 최종적으로 leaf 노드에서 예측값을 제공합니다. 이 코드의 핵심 원리는 정보 이득(Information Gain)을 기반으로 최적의 분할을 찾는 것입니다.
 
 **정보 이득(Information Gain) 계산:**
