@@ -105,8 +105,6 @@ class DecisionTree():
                 ...
                 나오겠지?
                 이중에 가장 좋은 조합은 idx = 나이 idx , thr = 33 이므로 이걸 최종 return 해준다.
-                ? 이럴거면 왜 feat_idxs 를 랜덤으로 고른걸까
-
             """
             for thr in thresholds:
                 # thr 보다 작은 X_column 값의 idx 를 구한다.
