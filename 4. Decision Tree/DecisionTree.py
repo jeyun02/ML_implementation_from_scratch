@@ -2,7 +2,6 @@ import numpy as np
 from collections import Counter
 
 class Node:
-
     def __init__(self, feature=None, threshold=None, left=None, right=None,*, value=None):
         """
         이진트리구조에 필요한 변수들은 무엇이 있을까
@@ -24,13 +23,14 @@ class Node:
 
 
 class DecisionTree():
-    def __init__(self, min_samples_split=2, max_depth=100, n_features=None):
+    def __init__(self, min_samples_split=2, max_depth=100, impurity="entropy", n_features=None):
         """변수설정. 함수 인자에서 정의하고 초기값을 None 으로 하는 것과
         함수 인자에서는 정의 안했지만 self.변수 에서는None 으로 초기화 하는 것의 차이는 무엇일까.\n
         입력 받을 수 있냐 없냐 차이겠지?\n
         n_feature 이 None 이기 때문에 random으로 feature를 선정하지 않고 30개의 모든 feature 를 사용함."""
         self.min_samples_split = min_samples_split
         self.max_depth = max_depth
+        self.impurity = impurity
         self.n_features = n_features # 랜덤으로 뽑을 feature 개수( hyperparameter 가 되나)
         self.root = None
         
@@ -122,7 +122,7 @@ class DecisionTree():
         """ fit > _grow_tree > 2._best_split"""
         
         # 1. parents entropy
-        parents_entropy = self._entropy(y)
+        parents_impurity = self._impurity(y)
 
         # 2. children 
         left_idxs, right_idxs = self._split(X_column, threshold)
@@ -137,14 +137,14 @@ class DecisionTree():
         # 3. weighted average of children E
         n = len(y)
         n_l, n_r = len(left_idxs), len(right_idxs)
-        e_l, e_r = self._entropy(y[left_idxs]), self._entropy(y[right_idxs])
-        children_entropy = (n_l/n)*e_l + (n_r/n)*e_r
+        e_l, e_r = self._impurity(y[left_idxs]), self._impurity(y[right_idxs])
+        children_impurity = (n_l/n)*e_l + (n_r/n)*e_r
         
         # 4. IG = parents E - weighted average of children E
-        informain_gain = parents_entropy - children_entropy
+        informain_gain = parents_impurity - children_impurity
         return informain_gain
     
-    def _entropy(self, y):
+    def _impurity(self, y):
         """ fit > _grow_tree > 2._best_split > _information_gain > 1,2,3,4
         최하단 information(=entropy) 값을 구한다.
         using np.bincount(y):
@@ -154,9 +154,29 @@ class DecisionTree():
         >>> [0, 2, 2, 1] 0은 0번, 1은 2번, 2는 2번, 3은 1번 등장했다는 뜻 
             -> histogram 만들기 용이. len(y) 로 나누면 p(label) array 를 만들 수 있음.
         """
+
+        #  value = counter.most_common(1)[0][0]에서 
+        # index out of range 에러 발생하여
+        # y =[] 인 경우 0 리턴해준다.
+        # 2024.12.19. 
+        if len(y) == 0: return 0
+
         hist = np.bincount(y)
         p_labels = hist / len(y)
-        return -np.sum([p * np.log(p) for p in p_labels if (p > 0)]) # log 의 밑 값은 상관 없음. 최적의 threshold 를 찾기만 하면 되니까.
+
+
+        if self.impurity == "entropy": # default.
+            return -np.sum([p * np.log(p) for p in p_labels if (p > 0)]) # log 의 밑 값은 상관 없음. 최적의 threshold 를 찾기만 하면 되니까.
+        elif self.impurity == "gini":
+            return 1 - np.sum([p ** 2 for p in p_labels if (p > 0)])
+        elif self.impurity == "misclassification":
+            return 1 - np.max(p_labels) if len(p_labels) > 0 else 0
+        else:
+            print("\"impurity = ",self.impurity,"\"is not in the list of impurity selection.")
+            print("The impurity is caculated by default setting(entropy).")
+            print("If you want other impurity, choose one of [\"entropy\", \"gini\", \"misclassification\"].")
+
+
 
     def _split(self, X_column, split_threshold):
         """ fit > _grow_tree > 2._best_split > _information_gain > 3.children , \n fit > _grow_tree > 3.
@@ -174,15 +194,20 @@ class DecisionTree():
     
     def _most_common_label(self, y):
         """ fit > _grow_tree > 1. leaf_value
-            정지 조건 시 leaf_node 의 value 로써 사용.   
-            \ny(array)에서 가장 많은 labels 개수(int)를 반환한다.
+            정지 조건 해당 시 leaf_node 의 value 로써 사용.   
+            \ny(array)에서 가장 많은 labels 종류를 반환한다.
             \nCounter().most_common(상위 몇개)은 [[(요소,요소개수)]] 형식의 리스트 내 튜플 형식을 반환.   
             \n따라서 counter.most_common(1)[0][0] 란, 요소 개수 순으로 1등 요소에 대해,   
-            0번째 리스트요소에 들어가고, 0번째 튜플요소에 들어가면 가장 많은 요소의 개수를 알 수 있다.
+            0번째 리스트요소에 들어가고, 0번째 튜플요소에 들어가면 가장 많이 등장한 y 요소를 알 수 있다.
         """
+
+        # y = [] 인 경우 에러 발생. -> None 리턴.
+
+        if len(y) == 0 : return None
+
         counter = Counter(y)
-        value = counter.most_common(1)[0][0]
-        return value
+        most_common = counter.most_common(1)
+        return most_common[0][0] if most_common else None # most_common = [] 인 경우도 에러가 나므로 return None 해준다.
 
     def predict(self, X):
         """ 함수 설명
@@ -203,9 +228,12 @@ class DecisionTree():
             \n    작으면 self.root.left 에 대해 _traverse 재귀
             \n    크면 self.root.right 에 대해 _traverse 재귀
         """
+        if node is None: return None # None 예외처리
         if node.is_leaf_node():
             return node.value
-
+        if node.threshold is None :
+            print(f"Warning: Node {node} has None threshold")
+            return node.value # None 예외처리
         if x[node.feature] <= node.threshold:
             return self._traverse_tree(x, node.left)
         else:
