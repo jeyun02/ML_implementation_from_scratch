@@ -1,0 +1,121 @@
+<mxfile>
+  <diagram name="ML Model Tree">
+    <mxGraphModel dx="1386" dy="782" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Root Node -->
+        <mxCell id="ML" value="ML" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="400" y="50" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Classification Node -->
+        <mxCell id="Classification" value="Classification" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="200" y="150" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="edge1" edge="1" parent="1" source="ML" target="Classification">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Regression Node -->
+        <mxCell id="Regression" value="Regression" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="400" y="150" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="edge2" edge="1" parent="1" source="ML" target="Regression">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Clustering Node -->
+        <mxCell id="Clustering" value="Clustering" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="600" y="150" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="edge3" edge="1" parent="1" source="ML" target="Clustering">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Dimensionality Reduction Node -->
+        <mxCell id="DimensionalityReduction" value="Dimensionality Reduction" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="800" y="150" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="edge4" edge="1" parent="1" source="ML" target="DimensionalityReduction">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Models under Classification -->
+        <mxCell id="KNN" value="KNN" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="100" y="250" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LogisticRegression" value="Logistic Regression" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="250" y="250" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="SVM" value="SVM" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="420" y="250" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge5" edge="1" parent="1" source="Classification" target="KNN">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge6" edge="1" parent="1" source="Classification" target="LogisticRegression">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge7" edge="1" parent="1" source="Classification" target="SVM">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Models under Regression -->
+        <mxCell id="LinearRegression" value="Linear Regression" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="350" y="250" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DecisionTrees" value="Decision Trees" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="520" y="250" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="RandomForests" value="Random Forests" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="690" y="250" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge8" edge="1" parent="1" source="Regression" target="LinearRegression">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge9" edge="1" parent="1" source="Regression" target="DecisionTrees">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge12" edge="1" parent="1" source="Regression" target="RandomForests">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Models under Clustering -->
+        <mxCell id="KMeans" value="KMeans" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="620" y="250" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge10" edge="1" parent="1" source="Clustering" target="KMeans">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Models under Dimensionality Reduction -->
+        <mxCell id="PCA" value="PCA" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="820" y="250" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge11" edge="1" parent="1" source="DimensionalityReduction" target="PCA">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Additional Models -->
+        <mxCell id="NaiveBayes" value="Naive Bayes" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="100" y="350" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Perceptron" value="Perceptron" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="250" y="350" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="edge13" edge="1" parent="1" source="Classification" target="NaiveBayes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge14" edge="1" parent="1" source="Classification" target="Perceptron">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
