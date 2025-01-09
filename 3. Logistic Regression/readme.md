@@ -14,18 +14,18 @@ $\vec{\beta} = [\beta_0, \beta_1, ..., \beta_n]$
 $$\hat{y} =  \vec{\beta}^T\vec{x} +\varepsilon$$
 ## 2. 좌변 변형. 이 식에서 선형성이 유지된다는 가정하에 좌변을 변형시킨다.[1]
 
-$y  \cdots (y ∈ \{0, 1\})
-\\ \mid\\
-\\ \small{(1)}\\ 
-\\ \downarrow\\
-p(x) = P(Y=1|X=\vec{x}) \cdots (p(x) ∈ [0,1])
-\\ \mid\\
-\\ \small{(2)}\\ 
-\\ \downarrow\\
-odds = \frac {P(Y=1|X=\vec{x})} {1−P(Y=1|X=\vec{x})} \cdots (odds ∈ [0,\infty))
-\\ \mid\\
-\\ \small{(3)}\\ 
-\\ \downarrow\\ 
+$y  \cdots (y ∈ \{0, 1\})   
+\\ \mid\\   
+\\ \small{(1)}\\   
+\\ \downarrow\\   
+p(x) = P(Y=1|X=\vec{x}) \cdots (p(x) ∈ [0,1])   
+\\ \mid\\   
+\\ \small{(2)}\\    
+\\ \downarrow\\   
+odds = \frac {P(Y=1|X=\vec{x})} {1−P(Y=1|X=\vec{x})}   \cdots (odds ∈ [0,\infty))   
+\\ \mid\\   
+\\ \small{(3)}\\   
+\\ \downarrow\\   
 log(odds) = log(\frac {P(Y=1|X=\vec{x})} {1−P(Y=1|X=\vec{x})}) = \frac{p(x)}{1−p(x)} \cdots (log(odds) ∈ (-\infty,\infty))$ 
 
 (1)  
@@ -34,7 +34,7 @@ log(odds) = log(\frac {P(Y=1|X=\vec{x})} {1−P(Y=1|X=\vec{x})}) = \frac{p(x)}{1
 (2)  
 $p(x)$ 와 $odds(p(x))$ 사이에 선형성이 유지된다고 가정.
 
-(3) $ $   
+(3)
 $odds(p(x))$ 와 $log(odds(p(x)))$ 사이에 선형성이 유지된다고 가정.
 
 즉, 로지스틱 회귀를 사용할 때, 로지스틱함수와 독립변수들간에 선형성이 유지된다는 가정이 필요하다.
