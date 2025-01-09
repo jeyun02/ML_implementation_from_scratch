@@ -1,8 +1,8 @@
 if __name__ == "__main__":
-   import PCA from PCA
    import matplotlib.pyplot as plt
    from sklearn import datasets
-
+   from PCA import PCA
+   
    # data = datasets.load_digits()
    data = datasets.load_iris()
    X = data.data
